@@ -1,0 +1,18 @@
+bool CompileShader(GLuint shaderID) {
+	cout << "Compiling shader" << shaderID << "..." << endl;
+	glCompileShader(shaderID);
+	int result = -1;
+	glGetShaderiv(shaderID, GL_COMPILE_STATUS, &result);
+	if (result != GL_TRUE) {
+		cout << "Shader " << shaderID << " compile failed" << endl;
+		int maxLength = 2048;
+		int realLength = 0;
+		char log[2048];
+		glGetShaderInfoLog(shaderID, maxLength, &realLength, log);
+		cout << log << endl;
+		return false;
+	}
+	cout << "Shader " << shaderID << " compile successful" << endl;
+	return true;
+}
+
